@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  maxDate = new Date();
 
   constructor() { }
 
   ngOnInit(): void {
+    // set minimam of 18 year for date picker
+    this.maxDate = new Date()
+    this.maxDate.setFullYear( this.maxDate.getFullYear() - 18 );
+  }
+
+  onSubmit( form: NgForm ) {
+    console.log( form );
   }
 
 }
