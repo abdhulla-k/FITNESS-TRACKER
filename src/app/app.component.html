@@ -1,81 +1,13 @@
-<!-- navbar and side menu -->
 <mat-sidenav-container>
-
-  <!-- side nav -->
   <mat-sidenav #sidenav role="navigation">
-    <mat-nav-list>
-      <a
-        routerLink="/signup"
-        mat-list-item
-        (click)="sidenav.close()">
-        <mat-icon>face</mat-icon>
-        <span class="nav-caption">Signup</span>
-      </a>
-      <a
-        routerLink="/login"
-        mat-list-item
-        (click)="sidenav.close()">
-        <mat-icon>input</mat-icon>
-        <span class="nav-caption">Login</span>
-      </a>
-      <a
-        routerLink="/training"
-        mat-list-item
-        (click)="sidenav.close()">
-        <mat-icon>fitness_center</mat-icon>
-        <span class="nav-caption">Training</span>
-      </a>
-      <mat-list-item>
-        <button mat-icon-button (click)="sidenav.close()">
-          <mat-icon>eject</mat-icon>
-          <span class="nav-caption">Logout</span>
-        </button>
-      </mat-list-item>
-    </mat-nav-list>
+    <app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
   </mat-sidenav>
-  <!-- /side nav -->
 
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-
-      <!-- humberger menu -->
-      <div fxHide.gt-xs>
-        <button
-          (click)="sidenav.toggle()"
-          mat-icon-button>
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
-      <!-- /humberger menu -->
-
-      <div>
-        <a routerLink="/">LOGO</a>
-      </div>
-
-      <!-- navbar or menue content -->
-      <div
-        fxFlex
-        fxLayout
-        fxLayoutAlign="end"
-        fxHide.xs>
-        <ul
-          fxLayout
-          fxLayoutGap="10px"
-          class="navigation-items">
-          <li><a routerLink="/signup">Signup</a></li>
-          <li><a routerLink="/login">Login</a></li>
-          <li><a routerLink="/training">Training</a></li>
-          <li><a>Logout</a></li>
-        </ul>
-      </div>
-      <!-- /navbar or menue content -->
-
-    </mat-toolbar>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
 
     <main>
       <router-outlet></router-outlet>
     </main>
-
   </mat-sidenav-content>
 </mat-sidenav-container>
-<!-- /navbar and side menu -->
