@@ -9,20 +9,8 @@
       <mat-form-field>
         <mat-select placeholder="Favorite food">
 
-          <mat-option value="crunches">
-            Crunches
-          </mat-option>
-
-          <mat-option value="touch-toes">
-            Touch Toes
-          </mat-option>
-
-          <mat-option value="side-lunges">
-            Side Lunges
-          </mat-option>
-
-          <mat-option value="burpees">
-            Burpees
+          <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
+            {{ exercise.name }}
           </mat-option>
 
         </mat-select>
