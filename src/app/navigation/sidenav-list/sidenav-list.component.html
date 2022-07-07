@@ -1,6 +1,7 @@
 <mat-nav-list>
   <a
     routerLink="/signup"
+    *ngIf="!isAuth"
     mat-list-item
     (click)="onClos()">
     <mat-icon>face</mat-icon>
@@ -8,6 +9,7 @@
   </a>
   <a
     routerLink="/login"
+    *ngIf="!isAuth"
     mat-list-item
     (click)="onClos()">
     <mat-icon>input</mat-icon>
@@ -15,12 +17,13 @@
   </a>
   <a
     routerLink="/training"
+    *ngIf="isAuth"
     mat-list-item
     (click)="onClos()">
     <mat-icon>fitness_center</mat-icon>
     <span class="nav-caption">Training</span>
   </a>
-  <mat-list-item>
+  <mat-list-item *ngIf="isAuth">
     <button mat-icon-button (click)="onClos()">
       <mat-icon>eject</mat-icon>
       <span class="nav-caption">Logout</span>
