@@ -7,8 +7,7 @@ import { Exercise } from "./exercise.model";
   providedIn: 'root'
 })
 export class TrainingService {
-  exerciseChanged = new Subject<Exercise>();
-  trainingExit = new Subject()
+  exerciseChanged = new Subject<Exercise | null>();
   private availableExercises: Exercise[] = [
     { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
     { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 10 },
@@ -40,7 +39,7 @@ export class TrainingService {
     }
 
     this.runningExercise = null as any;
-    this.trainingExit.next( null );
+    this.exerciseChanged.next( null );
   }
 
   cancelExercise( progress: number ) {
@@ -48,17 +47,21 @@ export class TrainingService {
       this.exercises.push({
         ...this.runningExercise,
         duration: this.runningExercise.duration * ( progress / 100 ),
-        calories: this.runningExercise.duration * ( progress / 100 ),
+        calories: this.runningExercise.calories * ( progress / 100 ),
         date: new Date,
         state: 'cancelled'
       });
     }
 
     this.runningExercise = null as any;
-    this.trainingExit.next( null );
+    this.exerciseChanged.next( null );
   }
 
   getRunningExercise() {
     return { ...this.runningExercise };
+  }
+
+  getCompletedOrCancelledExercises() {
+    return this.exercises.slice();
   }
 }
