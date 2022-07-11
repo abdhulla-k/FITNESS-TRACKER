@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -49,6 +50,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     ReactiveFormsModule,
     AngularFireModule.initializeApp( environment.firebase ),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
