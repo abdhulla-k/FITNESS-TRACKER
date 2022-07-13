@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -15,7 +16,6 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AuthModule } from './auth/auth.module';
-import { TrainingModule } from './training/training.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { TrainingModule } from './training/training.module';
     FlexLayoutModule,
     AngularFireModule.initializeApp( environment.firebase ),
     AuthModule,
-    TrainingModule,
+    AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
