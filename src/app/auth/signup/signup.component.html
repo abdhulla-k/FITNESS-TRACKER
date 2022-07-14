@@ -77,7 +77,7 @@
     <!-- /check box -->
 
     <button
-      *ngIf="!isLoading"
+      *ngIf="!(isLoading$ | async)"
       mat-raised-button
       type="submit"
       color="primary"
@@ -85,7 +85,7 @@
       Submit
     </button>
 
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
 
   </form>
   <!-- /signup form -->
