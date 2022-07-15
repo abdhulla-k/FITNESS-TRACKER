@@ -24,16 +24,16 @@
       fxLayout
       fxLayoutGap="10px"
       class="navigation-items">
-      <li *ngIf="!isAuth">
+      <li *ngIf="!( isAuth$ | async )">
         <a routerLink="/signup">Signup</a>
       </li>
-      <li *ngIf="!isAuth">
+      <li *ngIf="!( isAuth$ | async )">
         <a routerLink="/login">Login</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth$ | async">
         <a routerLink="/training">Training</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth$ | async">
         <a
           (click)="onLogout()"
           style="cursor: pointer;">
