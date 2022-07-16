@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UIService } from 'src/app/shared/ui.service';
 import { Store } from '@ngrx/store';
 
@@ -21,23 +21,20 @@ export class NewTrainingComponent implements OnInit {
 
   constructor(
     private trainingService: TrainingService,
-    private db: AngularFirestore,
-    private uiService: UIService,
     private store: Store<fromTraining.State>
   ) { }
 
   ngOnInit(): void {
     this.isLoading$ = this.store.select( fromRoot.getIsLoading );
-    this.exercises$ = this.store.select( fromTraining.getAvailableTrainings)
+    this.exercises$ = this.store.select( fromTraining.getAvailableTrainings);
     this.fetchExercises();
   }
 
   fetchExercises() {
-    this.trainingService.fetchAvailableExercises()
+    this.trainingService.fetchAvailableExercises();
   }
 
   onStartTraining( form: NgForm ) {
-    this.trainingService.startExercise( form.form.value.exercise )
-    // this.trainingService.startExercise( form.value.exercise )
+    this.trainingService.startExercise( form.form.value.exercise );
   }
 }

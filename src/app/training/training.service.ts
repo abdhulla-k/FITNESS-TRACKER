@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Subject, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { map, take } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Store } from "@ngrx/store";
@@ -14,11 +14,6 @@ import * as UI from "../shared/ui.actions";
   providedIn: 'root'
 })
 export class TrainingService {
-  exerciseChanged = new Subject<Exercise | null>(); // emitting status of current exercise.
-  exercisesChanged = new Subject<Exercise[]>();  // emitting availableExercises
-  finishedExerciseChanged = new Subject<Exercise[]>();
-  private availableExercises: Exercise[] = [];
-  private runningExercise: Exercise | undefined;
   private fbSub: Subscription[] = [];
 
   constructor(
@@ -28,7 +23,6 @@ export class TrainingService {
   ) {}
 
   fetchAvailableExercises() {
-    // this.uiService.fetchingExercises.next( true );
     this.store.dispatch( new UI.StartLoading() );
     this.fbSub.push(this.db
       .collection( 'availableExercises' )
@@ -48,13 +42,11 @@ export class TrainingService {
         this.store.dispatch( new UI.StopLoading() );
         this.store.dispatch( new Training.SetAvailableTrainings( exercises ));
       }, error => {
-        // this.uiService.loginStateChanged.next( false );
         this.store.dispatch( new UI.StopLoading() );
         this.uiService.showSnackbar(
           'Fetching Exercise failed, please try again later', null, 3000
         );
       }));
-    // return this.availableExercises.slice();
   }
 
   startExercise( selectedId: string ) {
@@ -104,7 +96,6 @@ export class TrainingService {
       .subscribe(( exercises: any[] ) => {
         this.store.dispatch( new Training.SetFinishedTrainings( exercises ));
       }));
-    // return this.fiishedExercises.slice();
   }
 
   cancelSubscriptions() {
