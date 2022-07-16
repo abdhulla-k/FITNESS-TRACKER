@@ -1,1 +1,86 @@
-<p>past-trainings works!</p>
+<section>
+
+  <!-- filter table -->
+  <div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input
+      type="text"
+      matInput
+      (keyup)="doFilter( $event )"
+      placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <!-- /filter table -->
+
+  <!-- previous trainings table -->
+  <mat-table
+    [dataSource]="dataSource"
+    matSort >
+
+    <!-- date column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell
+        mat-sort-header
+        *matHeaderCellDef>
+          Date
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.date?.toDate() | date }}</mat-cell>
+    </ng-container>
+    <!-- /date column -->
+
+    <!-- name column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell
+        mat-sort-header
+        *matHeaderCellDef>
+          Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    </ng-container>
+    <!-- /name column -->
+
+    <!-- calories column -->
+    <ng-container matColumnDef="calories">
+      <mat-header-cell
+        mat-sort-header
+        *matHeaderCellDef>
+          Calories
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.calories | number }}</mat-cell>
+    </ng-container>
+    <!-- /calories column -->
+
+    <!-- duration column -->
+    <ng-container matColumnDef="duration">
+      <mat-header-cell
+        mat-sort-header
+        *matHeaderCellDef>
+          Duration
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.duration | number }}</mat-cell>
+    </ng-container>
+    <!-- /duration column -->
+
+    <!-- state column -->
+    <ng-container matColumnDef="state">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header>
+          State
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.state }}</mat-cell>
+    </ng-container>
+    <!-- /state column -->
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <!-- /previous trainings table -->
+
+  <mat-paginator
+    [pageSize]="1"
+    [pageSizeOptions]="[1, 5, 10, 25, 100]"
+    aria-label="Select page">
+  </mat-paginator>
+
+</section>

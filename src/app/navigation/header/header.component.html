@@ -1,0 +1,47 @@
+<mat-toolbar color="primary">
+
+  <!-- humberger menu -->
+  <div fxHide.gt-xs>
+    <button
+      (click)="onToggleSidenav()"
+      mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <!-- /humberger menu -->
+
+  <div>
+    <a routerLink="/">Fitness Tracker</a>
+  </div>
+
+  <!-- navbar or menue content -->
+  <div
+    fxFlex
+    fxLayout
+    fxLayoutAlign="end"
+    fxHide.xs>
+    <ul
+      fxLayout
+      fxLayoutGap="10px"
+      class="navigation-items">
+      <li *ngIf="!( isAuth$ | async )">
+        <a routerLink="/signup">Signup</a>
+      </li>
+      <li *ngIf="!( isAuth$ | async )">
+        <a routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/training">Training</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a
+          (click)="onLogout()"
+          style="cursor: pointer;">
+          Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- /navbar or menue content -->
+
+</mat-toolbar>
