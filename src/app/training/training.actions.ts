@@ -8,7 +8,7 @@ export const START_TRAINING = '[Training] Start Training';
 export const STOP_TRAINING = '[Training] Stop Training';
 
 export class SetAvailableTrainings implements Action {
-  type = SET_AVAILABLE_TRAININGS;
+  readonly type = SET_AVAILABLE_TRAININGS;
 
   constructor( public payload: Exercise[] ) {}
 }
@@ -22,13 +22,13 @@ export class SetFinishedTrainings implements Action {
 export class StartTraining implements Action {
   type = START_TRAINING;
 
-  constructor( public payload: Exercise ) {}
+  constructor( public payload: string ) {}
 }
 
 export class StopTraining implements Action {
   type = STOP_TRAINING;
 
-  constructor( public payload: Exercise ) {}
+  constructor( public payload: any ) {}
 }
 
 export type TrainingActions =

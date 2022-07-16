@@ -8,14 +8,14 @@
         </mat-card-title>
 
         <mat-card-content fxLayoutAlign="center">
-          <mat-form-field  *ngIf="!(isLoading$ | async ) && exercises">
+          <mat-form-field  *ngIf="!(isLoading$ | async ) && ( exercises$ | async )">
             <mat-select
               placeholder="Favorite food"
               ngModel
               name="exercise"
               required>
               <mat-option
-                *ngFor="let exercise of exercises" [value]="exercise.id">
+                *ngFor="let exercise of exercises$ | async" [value]="exercise.id">
                 {{ exercise.name }}
               </mat-option>
 
@@ -27,7 +27,7 @@
         <mat-card-actions fxLayoutAlign="center">
           <button
             type="submit"
-            *ngIf="exercises"
+            *ngIf="exercises$ | async"
             mat-raised-button
             [disabled]="f.invalid"
             color="primary">
@@ -36,7 +36,7 @@
 
           <button
             type="button"
-            *ngIf="!exercises"
+            *ngIf="!( exercises$ | async )"
             mat-raised-button
             (click)="fetchExercises()"
             color="primary">

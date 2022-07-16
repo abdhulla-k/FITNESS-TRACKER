@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { TrainingService } from '../training.service';
 import { Exercise } from '../exercise.model';
+import * as fromTraining from '../training.reducer';
 import * as fromRoot from '../../app.reducer';
 
 @Component({
@@ -14,28 +15,20 @@ import * as fromRoot from '../../app.reducer';
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.css']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy {
-  exercises: Exercise[] | undefined;
-  exerciseSubscription: Subscription | undefined;
+export class NewTrainingComponent implements OnInit {
+  exercises$: Observable<Exercise[]> | undefined;
   isLoading$: Observable<boolean> | undefined;
-  fetchingExerciseSubs: Subscription | undefined;
 
   constructor(
     private trainingService: TrainingService,
     private db: AngularFirestore,
     private uiService: UIService,
-    private store: Store<fromRoot.State>
+    private store: Store<fromTraining.State>
   ) { }
 
   ngOnInit(): void {
     this.isLoading$ = this.store.select( fromRoot.getIsLoading );
-    // this.fetchingExerciseSubs = this.uiService.fetchingExercises.subscribe( isLoading => {
-    //   this.isLoading = isLoading;
-    // })
-    this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe( exercises => {
-      this.exercises = exercises
-      console.log( this.exercises );
-    })
+    this.exercises$ = this.store.select( fromTraining.getAvailableTrainings)
     this.fetchExercises();
   }
 
@@ -44,11 +37,7 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   }
 
   onStartTraining( form: NgForm ) {
-    this.trainingService.startExercise( form.value.exercise )
-  }
-
-  ngOnDestroy(): void {
-    this.exerciseSubscription?.unsubscribe();
-    // this.fetchingExerciseSubs?.unsubscribe();
+    this.trainingService.startExercise( form.form.value.exercise )
+    // this.trainingService.startExercise( form.value.exercise )
   }
 }
